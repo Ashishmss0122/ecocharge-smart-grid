@@ -13,7 +13,7 @@ import { scoreStation } from "@/lib/recommend";
 import { getQueueCounts, listStations } from "@/services/stations";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_app/stations")({
+export const Route = createFileRoute("/_app/stations/")({
   component: StationsPage,
 });
 
