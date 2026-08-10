@@ -52,7 +52,7 @@ function ProfilePage() {
                     {v.make} {v.model}
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    {v.registration_number} · {v.battery_capacity_kwh} kWh
+                    {v.registration_no} · {v.battery_capacity_kwh} kWh
                   </p>
                 </li>
               ))}

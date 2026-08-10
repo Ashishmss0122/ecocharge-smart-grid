@@ -13,6 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppHistoryRouteImport } from './routes/_app.history'
+import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppStationsIndexRouteImport } from './routes/_app.stations.index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -34,6 +37,21 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHistoryRoute = AppHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppStationsIndexRoute = AppStationsIndexRouteImport.update({
   id: '/stations/',
   path: '/stations/',
@@ -44,12 +62,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/history': typeof AppHistoryRoute
+  '/profile': typeof AppProfileRoute
   '/stations/': typeof AppStationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/history': typeof AppHistoryRoute
+  '/profile': typeof AppProfileRoute
   '/stations': typeof AppStationsIndexRoute
 }
 export interface FileRoutesById {
@@ -58,14 +82,40 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/history': typeof AppHistoryRoute
+  '/_app/profile': typeof AppProfileRoute
   '/_app/stations/': typeof AppStationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/register' | '/stations/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/dashboard'
+    | '/history'
+    | '/profile'
+    | '/stations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/stations'
-  id: '__root__' | '/' | '/_app' | '/login' | '/register' | '/_app/stations/'
+  to:
+    | '/'
+    | '/login'
+    | '/register'
+    | '/dashboard'
+    | '/history'
+    | '/profile'
+    | '/stations'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/login'
+    | '/register'
+    | '/_app/dashboard'
+    | '/_app/history'
+    | '/_app/profile'
+    | '/_app/stations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -105,6 +155,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/history': {
+      id: '/_app/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof AppHistoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/stations/': {
       id: '/_app/stations/'
       path: '/stations'
@@ -116,10 +187,16 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppHistoryRoute: typeof AppHistoryRoute
+  AppProfileRoute: typeof AppProfileRoute
   AppStationsIndexRoute: typeof AppStationsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppDashboardRoute: AppDashboardRoute,
+  AppHistoryRoute: AppHistoryRoute,
+  AppProfileRoute: AppProfileRoute,
   AppStationsIndexRoute: AppStationsIndexRoute,
 }
 
