@@ -44,9 +44,6 @@ function StationDetailPage() {
             {Number(station.rating).toFixed(1)}
           </span>
         </div>
-        {station.description && (
-          <p className="mt-4 text-sm text-muted-foreground">{station.description}</p>
-        )}
       </div>
 
       <h2 className="mt-8 font-display text-lg font-semibold">Chargers</h2>

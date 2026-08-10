@@ -13,10 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as AppAdminRouteImport } from './routes/_app.admin'
 import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 import { Route as AppHistoryRouteImport } from './routes/_app.history'
+import { Route as AppOwnerRouteImport } from './routes/_app.owner'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppStationsIndexRouteImport } from './routes/_app.stations.index'
+import { Route as AppStationsStationIdRouteImport } from './routes/_app.stations.$stationId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -37,6 +40,11 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -45,6 +53,11 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
 const AppHistoryRoute = AppHistoryRouteImport.update({
   id: '/history',
   path: '/history',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOwnerRoute = AppOwnerRouteImport.update({
+  id: '/owner',
+  path: '/owner',
   getParentRoute: () => AppRoute,
 } as any)
 const AppProfileRoute = AppProfileRouteImport.update({
@@ -57,23 +70,34 @@ const AppStationsIndexRoute = AppStationsIndexRouteImport.update({
   path: '/stations/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppStationsStationIdRoute = AppStationsStationIdRouteImport.update({
+  id: '/stations/$stationId',
+  path: '/stations/$stationId',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin': typeof AppAdminRoute
   '/dashboard': typeof AppDashboardRoute
   '/history': typeof AppHistoryRoute
+  '/owner': typeof AppOwnerRoute
   '/profile': typeof AppProfileRoute
+  '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations/': typeof AppStationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/admin': typeof AppAdminRoute
   '/dashboard': typeof AppDashboardRoute
   '/history': typeof AppHistoryRoute
+  '/owner': typeof AppOwnerRoute
   '/profile': typeof AppProfileRoute
+  '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations': typeof AppStationsIndexRoute
 }
 export interface FileRoutesById {
@@ -82,9 +106,12 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/_app/admin': typeof AppAdminRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/history': typeof AppHistoryRoute
+  '/_app/owner': typeof AppOwnerRoute
   '/_app/profile': typeof AppProfileRoute
+  '/_app/stations/$stationId': typeof AppStationsStationIdRoute
   '/_app/stations/': typeof AppStationsIndexRoute
 }
 export interface FileRouteTypes {
@@ -93,18 +120,24 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/register'
+    | '/admin'
     | '/dashboard'
     | '/history'
+    | '/owner'
     | '/profile'
+    | '/stations/$stationId'
     | '/stations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
     | '/register'
+    | '/admin'
     | '/dashboard'
     | '/history'
+    | '/owner'
     | '/profile'
+    | '/stations/$stationId'
     | '/stations'
   id:
     | '__root__'
@@ -112,9 +145,12 @@ export interface FileRouteTypes {
     | '/_app'
     | '/login'
     | '/register'
+    | '/_app/admin'
     | '/_app/dashboard'
     | '/_app/history'
+    | '/_app/owner'
     | '/_app/profile'
+    | '/_app/stations/$stationId'
     | '/_app/stations/'
   fileRoutesById: FileRoutesById
 }
@@ -155,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/admin': {
+      id: '/_app/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/dashboard': {
       id: '/_app/dashboard'
       path: '/dashboard'
@@ -167,6 +210,13 @@ declare module '@tanstack/react-router' {
       path: '/history'
       fullPath: '/history'
       preLoaderRoute: typeof AppHistoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/owner': {
+      id: '/_app/owner'
+      path: '/owner'
+      fullPath: '/owner'
+      preLoaderRoute: typeof AppOwnerRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/profile': {
@@ -183,20 +233,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStationsIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/stations/$stationId': {
+      id: '/_app/stations/$stationId'
+      path: '/stations/$stationId'
+      fullPath: '/stations/$stationId'
+      preLoaderRoute: typeof AppStationsStationIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppAdminRoute: typeof AppAdminRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppHistoryRoute: typeof AppHistoryRoute
+  AppOwnerRoute: typeof AppOwnerRoute
   AppProfileRoute: typeof AppProfileRoute
+  AppStationsStationIdRoute: typeof AppStationsStationIdRoute
   AppStationsIndexRoute: typeof AppStationsIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAdminRoute: AppAdminRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppHistoryRoute: AppHistoryRoute,
+  AppOwnerRoute: AppOwnerRoute,
   AppProfileRoute: AppProfileRoute,
+  AppStationsStationIdRoute: AppStationsStationIdRoute,
   AppStationsIndexRoute: AppStationsIndexRoute,
 }
 
