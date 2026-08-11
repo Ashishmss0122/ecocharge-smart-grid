@@ -41,7 +41,7 @@ function Landing() {
           <Logo />
           <nav className="flex items-center gap-2">
             <Button variant="ghost" asChild>
-              <Link to="/login">Sign in</Link>
+              <Link to="/login" search={{ redirect: undefined }}>Sign in</Link>
             </Button>
             <Button asChild>
               <Link to="/register">Get started</Link>
