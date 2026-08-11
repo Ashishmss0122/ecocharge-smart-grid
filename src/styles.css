@@ -6,7 +6,7 @@
 
 /*
  * ECOCHARGE design system.
- * Dark eco-tech theme. All colors are oklch tokens — never hardcode colors.
+ * Yellow-black energy theme. All colors are oklch tokens — never hardcode colors.
  */
 
 @theme inline {
@@ -33,8 +33,8 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-mint: var(--mint);
-  --color-mint-foreground: var(--mint-foreground);
+  --color-lemon: var(--lemon);
+  --color-lemon-foreground: var(--lemon-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -65,53 +65,53 @@
 :root {
   --radius: 1rem;
 
-  /* #071A17 */
-  --background: oklch(0.171 0.019 168);
-  /* #F5FFFA */
-  --foreground: oklch(0.985 0.014 165);
-  /* #0B2A24 */
-  --surface: oklch(0.244 0.029 168);
-  --surface-foreground: oklch(0.985 0.014 165);
-  --card: oklch(0.244 0.029 168);
-  --card-foreground: oklch(0.985 0.014 165);
-  --popover: oklch(0.222 0.027 168);
-  --popover-foreground: oklch(0.985 0.014 165);
-  /* #20C997 */
-  --primary: oklch(0.756 0.135 168);
-  --primary-foreground: oklch(0.171 0.019 168);
-  /* #39E75F */
-  --accent: oklch(0.844 0.203 145);
-  --accent-foreground: oklch(0.171 0.019 168);
-  /* #B8F5D0 */
-  --mint: oklch(0.933 0.076 155);
-  --mint-foreground: oklch(0.171 0.019 168);
-  --secondary: oklch(0.284 0.032 168);
-  --secondary-foreground: oklch(0.933 0.076 155);
-  --muted: oklch(0.268 0.028 168);
-  /* #8FAFA5 */
-  --muted-foreground: oklch(0.714 0.024 166);
-  --destructive: oklch(0.637 0.201 22);
-  --destructive-foreground: oklch(0.985 0.014 165);
+  /* #0A0A0A */
+  --background: oklch(0.145 0.001 263);
+  /* #F5F5F0 */
+  --foreground: oklch(0.969 0.006 107);
+  /* #141414 */
+  --surface: oklch(0.191 0.001 263);
+  --surface-foreground: oklch(0.969 0.006 107);
+  --card: oklch(0.191 0.001 263);
+  --card-foreground: oklch(0.969 0.006 107);
+  --popover: oklch(0.17 0.001 263);
+  --popover-foreground: oklch(0.969 0.006 107);
+  /* #F4C430 */
+  --primary: oklch(0.84 0.16 89);
+  --primary-foreground: oklch(0.145 0.001 263);
+  /* #FFD700 */
+  --accent: oklch(0.887 0.182 95);
+  --accent-foreground: oklch(0.145 0.001 263);
+  /* #FFF2A8 */
+  --lemon: oklch(0.955 0.094 99);
+  --lemon-foreground: oklch(0.145 0.001 263);
+  --secondary: oklch(0.24 0.005 263);
+  --secondary-foreground: oklch(0.955 0.094 99);
+  --muted: oklch(0.239 0.005 263);
+  /* #A8A8A0 */
+  --muted-foreground: oklch(0.729 0.011 107);
+  --destructive: oklch(0.663 0.224 28);
+  --destructive-foreground: oklch(0.969 0.006 107);
   --warning: oklch(0.812 0.152 78);
-  --warning-foreground: oklch(0.171 0.019 168);
-  --border: oklch(0.985 0.014 165 / 12%);
-  --input: oklch(0.985 0.014 165 / 16%);
-  --ring: oklch(0.756 0.135 168);
+  --warning-foreground: oklch(0.145 0.001 263);
+  --border: oklch(0.969 0.006 107 / 12%);
+  --input: oklch(0.969 0.006 107 / 16%);
+  --ring: oklch(0.84 0.16 89);
 
-  --chart-1: oklch(0.756 0.135 168);
-  --chart-2: oklch(0.844 0.203 145);
-  --chart-3: oklch(0.933 0.076 155);
+  --chart-1: oklch(0.84 0.16 89);
+  --chart-2: oklch(0.887 0.182 95);
+  --chart-3: oklch(0.955 0.094 99);
   --chart-4: oklch(0.812 0.152 78);
   --chart-5: oklch(0.66 0.11 200);
 
-  --sidebar: oklch(0.208 0.024 168);
-  --sidebar-foreground: oklch(0.985 0.014 165);
-  --sidebar-primary: oklch(0.756 0.135 168);
-  --sidebar-primary-foreground: oklch(0.171 0.019 168);
-  --sidebar-accent: oklch(0.268 0.028 168);
-  --sidebar-accent-foreground: oklch(0.933 0.076 155);
-  --sidebar-border: oklch(0.985 0.014 165 / 10%);
-  --sidebar-ring: oklch(0.756 0.135 168);
+  --sidebar: oklch(0.155 0.005 263);
+  --sidebar-foreground: oklch(0.969 0.006 107);
+  --sidebar-primary: oklch(0.84 0.16 89);
+  --sidebar-primary-foreground: oklch(0.145 0.001 263);
+  --sidebar-accent: oklch(0.239 0.005 263);
+  --sidebar-accent-foreground: oklch(0.955 0.094 99);
+  --sidebar-border: oklch(0.969 0.006 107 / 10%);
+  --sidebar-ring: oklch(0.84 0.16 89);
 
   --gradient-eco: linear-gradient(135deg, var(--primary), var(--accent));
   --gradient-surface: linear-gradient(
@@ -157,7 +157,7 @@
 @utility glass {
   background: color-mix(in oklab, var(--surface) 62%, transparent);
   backdrop-filter: blur(16px);
-  border: 1px solid color-mix(in oklab, var(--mint) 12%, transparent);
+  border: 1px solid color-mix(in oklab, var(--lemon) 12%, transparent);
   box-shadow: var(--shadow-soft);
 }
 
