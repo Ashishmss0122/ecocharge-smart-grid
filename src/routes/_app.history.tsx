@@ -57,17 +57,32 @@ function HistoryPage() {
                     {b.chargers?.label ?? "Charger"}
                   </p>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-semibold text-primary">
-                    {INR(Number(b.estimated_cost ?? 0))}
-                  </p>
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                    {b.status}
-                  </p>
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <p className="text-sm font-semibold text-primary">
+                      {INR(Number(b.estimated_cost ?? 0))}
+                    </p>
+                    <p className="text-xs uppercase tracking-wider text-muted-foreground">
+                      {b.status}
+                    </p>
+                  </div>
+                  {(b.status === "confirmed" || b.status === "active") && (
+                    <Button size="sm" asChild>
+                      <Link to="/charging/$bookingId" params={{ bookingId: b.id }}>
+                        {b.status === "active" ? "Resume" : "Start"}
+                      </Link>
+                    </Button>
+                  )}
+                  <Button size="sm" variant="outline" asChild>
+                    <Link to="/confirmation/$bookingId" params={{ bookingId: b.id }}>
+                      Ticket
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>
           ))}
+
         </div>
       )}
     </PageTransition>
