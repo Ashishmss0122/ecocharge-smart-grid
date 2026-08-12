@@ -19,6 +19,7 @@ import { Route as AppHistoryRouteImport } from './routes/_app.history'
 import { Route as AppOwnerRouteImport } from './routes/_app.owner'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppBookingStationIdRouteImport } from './routes/_app.booking.$stationId'
+import { Route as AppConfirmationBookingIdRouteImport } from './routes/_app.confirmation.$bookingId'
 import { Route as AppStationsIndexRouteImport } from './routes/_app.stations.index'
 import { Route as AppStationsStationIdRouteImport } from './routes/_app.stations.$stationId'
 
@@ -71,6 +72,12 @@ const AppBookingStationIdRoute = AppBookingStationIdRouteImport.update({
   path: '/booking/$stationId',
   getParentRoute: () => AppRoute,
 } as any)
+const AppConfirmationBookingIdRoute =
+  AppConfirmationBookingIdRouteImport.update({
+    id: '/confirmation/$bookingId',
+    path: '/confirmation/$bookingId',
+    getParentRoute: () => AppRoute,
+  } as any)
 const AppStationsIndexRoute = AppStationsIndexRouteImport.update({
   id: '/stations/',
   path: '/stations/',
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/owner': typeof AppOwnerRoute
   '/profile': typeof AppProfileRoute
   '/booking/$stationId': typeof AppBookingStationIdRoute
+  '/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations/': typeof AppStationsIndexRoute
 }
@@ -105,6 +113,7 @@ export interface FileRoutesByTo {
   '/owner': typeof AppOwnerRoute
   '/profile': typeof AppProfileRoute
   '/booking/$stationId': typeof AppBookingStationIdRoute
+  '/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations': typeof AppStationsIndexRoute
 }
@@ -120,6 +129,7 @@ export interface FileRoutesById {
   '/_app/owner': typeof AppOwnerRoute
   '/_app/profile': typeof AppProfileRoute
   '/_app/booking/$stationId': typeof AppBookingStationIdRoute
+  '/_app/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/_app/stations/$stationId': typeof AppStationsStationIdRoute
   '/_app/stations/': typeof AppStationsIndexRoute
 }
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
     | '/owner'
     | '/profile'
     | '/booking/$stationId'
+    | '/confirmation/$bookingId'
     | '/stations/$stationId'
     | '/stations/'
   fileRoutesByTo: FileRoutesByTo
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '/owner'
     | '/profile'
     | '/booking/$stationId'
+    | '/confirmation/$bookingId'
     | '/stations/$stationId'
     | '/stations'
   id:
@@ -162,6 +174,7 @@ export interface FileRouteTypes {
     | '/_app/owner'
     | '/_app/profile'
     | '/_app/booking/$stationId'
+    | '/_app/confirmation/$bookingId'
     | '/_app/stations/$stationId'
     | '/_app/stations/'
   fileRoutesById: FileRoutesById
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBookingStationIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/confirmation/$bookingId': {
+      id: '/_app/confirmation/$bookingId'
+      path: '/confirmation/$bookingId'
+      fullPath: '/confirmation/$bookingId'
+      preLoaderRoute: typeof AppConfirmationBookingIdRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/stations/': {
       id: '/_app/stations/'
       path: '/stations'
@@ -269,6 +289,7 @@ interface AppRouteChildren {
   AppOwnerRoute: typeof AppOwnerRoute
   AppProfileRoute: typeof AppProfileRoute
   AppBookingStationIdRoute: typeof AppBookingStationIdRoute
+  AppConfirmationBookingIdRoute: typeof AppConfirmationBookingIdRoute
   AppStationsStationIdRoute: typeof AppStationsStationIdRoute
   AppStationsIndexRoute: typeof AppStationsIndexRoute
 }
@@ -280,6 +301,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppOwnerRoute: AppOwnerRoute,
   AppProfileRoute: AppProfileRoute,
   AppBookingStationIdRoute: AppBookingStationIdRoute,
+  AppConfirmationBookingIdRoute: AppConfirmationBookingIdRoute,
   AppStationsStationIdRoute: AppStationsStationIdRoute,
   AppStationsIndexRoute: AppStationsIndexRoute,
 }
@@ -295,13 +317,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
