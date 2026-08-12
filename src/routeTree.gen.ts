@@ -18,6 +18,7 @@ import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
 import { Route as AppHistoryRouteImport } from './routes/_app.history'
 import { Route as AppOwnerRouteImport } from './routes/_app.owner'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
+import { Route as AppBookingStationIdRouteImport } from './routes/_app.booking.$stationId'
 import { Route as AppStationsIndexRouteImport } from './routes/_app.stations.index'
 import { Route as AppStationsStationIdRouteImport } from './routes/_app.stations.$stationId'
 
@@ -65,6 +66,11 @@ const AppProfileRoute = AppProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AppRoute,
 } as any)
+const AppBookingStationIdRoute = AppBookingStationIdRouteImport.update({
+  id: '/booking/$stationId',
+  path: '/booking/$stationId',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppStationsIndexRoute = AppStationsIndexRouteImport.update({
   id: '/stations/',
   path: '/stations/',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/history': typeof AppHistoryRoute
   '/owner': typeof AppOwnerRoute
   '/profile': typeof AppProfileRoute
+  '/booking/$stationId': typeof AppBookingStationIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations/': typeof AppStationsIndexRoute
 }
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/history': typeof AppHistoryRoute
   '/owner': typeof AppOwnerRoute
   '/profile': typeof AppProfileRoute
+  '/booking/$stationId': typeof AppBookingStationIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations': typeof AppStationsIndexRoute
 }
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/_app/history': typeof AppHistoryRoute
   '/_app/owner': typeof AppOwnerRoute
   '/_app/profile': typeof AppProfileRoute
+  '/_app/booking/$stationId': typeof AppBookingStationIdRoute
   '/_app/stations/$stationId': typeof AppStationsStationIdRoute
   '/_app/stations/': typeof AppStationsIndexRoute
 }
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/owner'
     | '/profile'
+    | '/booking/$stationId'
     | '/stations/$stationId'
     | '/stations/'
   fileRoutesByTo: FileRoutesByTo
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/owner'
     | '/profile'
+    | '/booking/$stationId'
     | '/stations/$stationId'
     | '/stations'
   id:
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/_app/history'
     | '/_app/owner'
     | '/_app/profile'
+    | '/_app/booking/$stationId'
     | '/_app/stations/$stationId'
     | '/_app/stations/'
   fileRoutesById: FileRoutesById
@@ -226,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppProfileRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/booking/$stationId': {
+      id: '/_app/booking/$stationId'
+      path: '/booking/$stationId'
+      fullPath: '/booking/$stationId'
+      preLoaderRoute: typeof AppBookingStationIdRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/stations/': {
       id: '/_app/stations/'
       path: '/stations'
@@ -249,6 +268,7 @@ interface AppRouteChildren {
   AppHistoryRoute: typeof AppHistoryRoute
   AppOwnerRoute: typeof AppOwnerRoute
   AppProfileRoute: typeof AppProfileRoute
+  AppBookingStationIdRoute: typeof AppBookingStationIdRoute
   AppStationsStationIdRoute: typeof AppStationsStationIdRoute
   AppStationsIndexRoute: typeof AppStationsIndexRoute
 }
@@ -259,6 +279,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppHistoryRoute: AppHistoryRoute,
   AppOwnerRoute: AppOwnerRoute,
   AppProfileRoute: AppProfileRoute,
+  AppBookingStationIdRoute: AppBookingStationIdRoute,
   AppStationsStationIdRoute: AppStationsStationIdRoute,
   AppStationsIndexRoute: AppStationsIndexRoute,
 }
