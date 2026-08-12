@@ -21,6 +21,7 @@ import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppBookingStationIdRouteImport } from './routes/_app.booking.$stationId'
 import { Route as AppChargingBookingIdRouteImport } from './routes/_app.charging.$bookingId'
 import { Route as AppConfirmationBookingIdRouteImport } from './routes/_app.confirmation.$bookingId'
+import { Route as AppPaymentSessionIdRouteImport } from './routes/_app.payment.$sessionId'
 import { Route as AppStationsIndexRouteImport } from './routes/_app.stations.index'
 import { Route as AppStationsStationIdRouteImport } from './routes/_app.stations.$stationId'
 
@@ -84,6 +85,11 @@ const AppConfirmationBookingIdRoute =
     path: '/confirmation/$bookingId',
     getParentRoute: () => AppRoute,
   } as any)
+const AppPaymentSessionIdRoute = AppPaymentSessionIdRouteImport.update({
+  id: '/payment/$sessionId',
+  path: '/payment/$sessionId',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppStationsIndexRoute = AppStationsIndexRouteImport.update({
   id: '/stations/',
   path: '/stations/',
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/booking/$stationId': typeof AppBookingStationIdRoute
   '/charging/$bookingId': typeof AppChargingBookingIdRoute
   '/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
+  '/payment/$sessionId': typeof AppPaymentSessionIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations/': typeof AppStationsIndexRoute
 }
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/booking/$stationId': typeof AppBookingStationIdRoute
   '/charging/$bookingId': typeof AppChargingBookingIdRoute
   '/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
+  '/payment/$sessionId': typeof AppPaymentSessionIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations': typeof AppStationsIndexRoute
 }
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/_app/booking/$stationId': typeof AppBookingStationIdRoute
   '/_app/charging/$bookingId': typeof AppChargingBookingIdRoute
   '/_app/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
+  '/_app/payment/$sessionId': typeof AppPaymentSessionIdRoute
   '/_app/stations/$stationId': typeof AppStationsStationIdRoute
   '/_app/stations/': typeof AppStationsIndexRoute
 }
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/booking/$stationId'
     | '/charging/$bookingId'
     | '/confirmation/$bookingId'
+    | '/payment/$sessionId'
     | '/stations/$stationId'
     | '/stations/'
   fileRoutesByTo: FileRoutesByTo
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/booking/$stationId'
     | '/charging/$bookingId'
     | '/confirmation/$bookingId'
+    | '/payment/$sessionId'
     | '/stations/$stationId'
     | '/stations'
   id:
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/_app/booking/$stationId'
     | '/_app/charging/$bookingId'
     | '/_app/confirmation/$bookingId'
+    | '/_app/payment/$sessionId'
     | '/_app/stations/$stationId'
     | '/_app/stations/'
   fileRoutesById: FileRoutesById
@@ -284,6 +296,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppConfirmationBookingIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/payment/$sessionId': {
+      id: '/_app/payment/$sessionId'
+      path: '/payment/$sessionId'
+      fullPath: '/payment/$sessionId'
+      preLoaderRoute: typeof AppPaymentSessionIdRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/stations/': {
       id: '/_app/stations/'
       path: '/stations'
@@ -310,6 +329,7 @@ interface AppRouteChildren {
   AppBookingStationIdRoute: typeof AppBookingStationIdRoute
   AppChargingBookingIdRoute: typeof AppChargingBookingIdRoute
   AppConfirmationBookingIdRoute: typeof AppConfirmationBookingIdRoute
+  AppPaymentSessionIdRoute: typeof AppPaymentSessionIdRoute
   AppStationsStationIdRoute: typeof AppStationsStationIdRoute
   AppStationsIndexRoute: typeof AppStationsIndexRoute
 }
@@ -323,6 +343,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppBookingStationIdRoute: AppBookingStationIdRoute,
   AppChargingBookingIdRoute: AppChargingBookingIdRoute,
   AppConfirmationBookingIdRoute: AppConfirmationBookingIdRoute,
+  AppPaymentSessionIdRoute: AppPaymentSessionIdRoute,
   AppStationsStationIdRoute: AppStationsStationIdRoute,
   AppStationsIndexRoute: AppStationsIndexRoute,
 }
