@@ -90,7 +90,7 @@ function DashboardPage() {
                   </p>
                 </div>
                 <Button size="sm" asChild>
-                  <Link to="/history">View details</Link>
+                  <Link to="/charging/$bookingId" params={{ bookingId: b.id }}>Charge now</Link>
                 </Button>
               </li>
             ))}
