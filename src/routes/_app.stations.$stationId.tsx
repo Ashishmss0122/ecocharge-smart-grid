@@ -69,9 +69,12 @@ function StationDetailPage() {
 
       <div className="mt-8">
         <Button size="lg" asChild>
-          <Link to="/stations">Book a slot</Link>
+          <Link to="/booking/$stationId" params={{ stationId: station.id }}>
+            Book a slot
+          </Link>
         </Button>
       </div>
+
     </PageTransition>
   );
 }
