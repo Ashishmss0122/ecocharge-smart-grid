@@ -19,6 +19,7 @@ import { Route as AppHistoryRouteImport } from './routes/_app.history'
 import { Route as AppOwnerRouteImport } from './routes/_app.owner'
 import { Route as AppProfileRouteImport } from './routes/_app.profile'
 import { Route as AppBookingStationIdRouteImport } from './routes/_app.booking.$stationId'
+import { Route as AppChargingBookingIdRouteImport } from './routes/_app.charging.$bookingId'
 import { Route as AppConfirmationBookingIdRouteImport } from './routes/_app.confirmation.$bookingId'
 import { Route as AppStationsIndexRouteImport } from './routes/_app.stations.index'
 import { Route as AppStationsStationIdRouteImport } from './routes/_app.stations.$stationId'
@@ -72,6 +73,11 @@ const AppBookingStationIdRoute = AppBookingStationIdRouteImport.update({
   path: '/booking/$stationId',
   getParentRoute: () => AppRoute,
 } as any)
+const AppChargingBookingIdRoute = AppChargingBookingIdRouteImport.update({
+  id: '/charging/$bookingId',
+  path: '/charging/$bookingId',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppConfirmationBookingIdRoute =
   AppConfirmationBookingIdRouteImport.update({
     id: '/confirmation/$bookingId',
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/owner': typeof AppOwnerRoute
   '/profile': typeof AppProfileRoute
   '/booking/$stationId': typeof AppBookingStationIdRoute
+  '/charging/$bookingId': typeof AppChargingBookingIdRoute
   '/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations/': typeof AppStationsIndexRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/owner': typeof AppOwnerRoute
   '/profile': typeof AppProfileRoute
   '/booking/$stationId': typeof AppBookingStationIdRoute
+  '/charging/$bookingId': typeof AppChargingBookingIdRoute
   '/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
   '/stations': typeof AppStationsIndexRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/_app/owner': typeof AppOwnerRoute
   '/_app/profile': typeof AppProfileRoute
   '/_app/booking/$stationId': typeof AppBookingStationIdRoute
+  '/_app/charging/$bookingId': typeof AppChargingBookingIdRoute
   '/_app/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/_app/stations/$stationId': typeof AppStationsStationIdRoute
   '/_app/stations/': typeof AppStationsIndexRoute
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/owner'
     | '/profile'
     | '/booking/$stationId'
+    | '/charging/$bookingId'
     | '/confirmation/$bookingId'
     | '/stations/$stationId'
     | '/stations/'
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/owner'
     | '/profile'
     | '/booking/$stationId'
+    | '/charging/$bookingId'
     | '/confirmation/$bookingId'
     | '/stations/$stationId'
     | '/stations'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/_app/owner'
     | '/_app/profile'
     | '/_app/booking/$stationId'
+    | '/_app/charging/$bookingId'
     | '/_app/confirmation/$bookingId'
     | '/_app/stations/$stationId'
     | '/_app/stations/'
@@ -258,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBookingStationIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/charging/$bookingId': {
+      id: '/_app/charging/$bookingId'
+      path: '/charging/$bookingId'
+      fullPath: '/charging/$bookingId'
+      preLoaderRoute: typeof AppChargingBookingIdRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/confirmation/$bookingId': {
       id: '/_app/confirmation/$bookingId'
       path: '/confirmation/$bookingId'
@@ -289,6 +308,7 @@ interface AppRouteChildren {
   AppOwnerRoute: typeof AppOwnerRoute
   AppProfileRoute: typeof AppProfileRoute
   AppBookingStationIdRoute: typeof AppBookingStationIdRoute
+  AppChargingBookingIdRoute: typeof AppChargingBookingIdRoute
   AppConfirmationBookingIdRoute: typeof AppConfirmationBookingIdRoute
   AppStationsStationIdRoute: typeof AppStationsStationIdRoute
   AppStationsIndexRoute: typeof AppStationsIndexRoute
@@ -301,6 +321,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppOwnerRoute: AppOwnerRoute,
   AppProfileRoute: AppProfileRoute,
   AppBookingStationIdRoute: AppBookingStationIdRoute,
+  AppChargingBookingIdRoute: AppChargingBookingIdRoute,
   AppConfirmationBookingIdRoute: AppConfirmationBookingIdRoute,
   AppStationsStationIdRoute: AppStationsStationIdRoute,
   AppStationsIndexRoute: AppStationsIndexRoute,
