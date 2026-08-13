@@ -6,7 +6,12 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// Docker builds set DOCKER_NITRO_PRESET=node-server so the same source tree can be
+// packaged as a plain Node server image. Unset => Lovable/Vercel default target.
+const dockerPreset = process.env["DOCKER_NITRO_PRESET"];
+
 export default defineConfig({
+  ...(dockerPreset ? { nitro: { preset: dockerPreset } } : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

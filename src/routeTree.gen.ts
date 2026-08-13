@@ -24,6 +24,7 @@ import { Route as AppConfirmationBookingIdRouteImport } from './routes/_app.conf
 import { Route as AppPaymentSessionIdRouteImport } from './routes/_app.payment.$sessionId'
 import { Route as AppStationsIndexRouteImport } from './routes/_app.stations.index'
 import { Route as AppStationsStationIdRouteImport } from './routes/_app.stations.$stationId'
+import { Route as ApiPublicHealthRouteImport } from './routes/api/public/health'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -100,6 +101,11 @@ const AppStationsStationIdRoute = AppStationsStationIdRouteImport.update({
   path: '/stations/$stationId',
   getParentRoute: () => AppRoute,
 } as any)
+const ApiPublicHealthRoute = ApiPublicHealthRouteImport.update({
+  id: '/api/public/health',
+  path: '/api/public/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/payment/$sessionId': typeof AppPaymentSessionIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/stations/': typeof AppStationsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/payment/$sessionId': typeof AppPaymentSessionIdRoute
   '/stations/$stationId': typeof AppStationsStationIdRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/stations': typeof AppStationsIndexRoute
 }
 export interface FileRoutesById {
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/_app/confirmation/$bookingId': typeof AppConfirmationBookingIdRoute
   '/_app/payment/$sessionId': typeof AppPaymentSessionIdRoute
   '/_app/stations/$stationId': typeof AppStationsStationIdRoute
+  '/api/public/health': typeof ApiPublicHealthRoute
   '/_app/stations/': typeof AppStationsIndexRoute
 }
 export interface FileRouteTypes {
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/confirmation/$bookingId'
     | '/payment/$sessionId'
     | '/stations/$stationId'
+    | '/api/public/health'
     | '/stations/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/confirmation/$bookingId'
     | '/payment/$sessionId'
     | '/stations/$stationId'
+    | '/api/public/health'
     | '/stations'
   id:
     | '__root__'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/_app/confirmation/$bookingId'
     | '/_app/payment/$sessionId'
     | '/_app/stations/$stationId'
+    | '/api/public/health'
     | '/_app/stations/'
   fileRoutesById: FileRoutesById
 }
@@ -208,6 +220,7 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  ApiPublicHealthRoute: typeof ApiPublicHealthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppStationsStationIdRouteImport
       parentRoute: typeof AppRoute
     }
+    '/api/public/health': {
+      id: '/api/public/health'
+      path: '/api/public/health'
+      fullPath: '/api/public/health'
+      preLoaderRoute: typeof ApiPublicHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -355,7 +375,18 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  ApiPublicHealthRoute: ApiPublicHealthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
