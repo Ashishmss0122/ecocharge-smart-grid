@@ -70,9 +70,7 @@ describe("wait time estimation", () => {
   });
 
   it("never exceeds the 90 minute cap", () => {
-    const busy = Array.from({ length: 3 }, (_, i) =>
-      charger({ id: `c${i}`, status: "in_use" }),
-    );
+    const busy = Array.from({ length: 3 }, (_, i) => charger({ id: `c${i}`, status: "in_use" }));
     expect(estimateWaitMinutes(busy, 50)).toBeLessThanOrEqual(90);
   });
 });

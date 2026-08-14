@@ -1,6 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { BatteryCharging, Building2, Gauge, Leaf, MapPinned, QrCode, ShieldCheck, Zap } from "lucide-react";
+import {
+  BatteryCharging,
+  Building2,
+  Gauge,
+  Leaf,
+  MapPinned,
+  QrCode,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { Reveal } from "@/components/PageTransition";
 import { Button } from "@/components/ui/button";
@@ -25,12 +34,36 @@ export const Route = createFileRoute("/")({
 });
 
 const FEATURES = [
-  { icon: MapPinned, title: "Smart discovery", text: "Live availability, distance, pricing and wait time across every station." },
-  { icon: QrCode, title: "QR-verified booking", text: "Reserve a charger and arrive with a scannable confirmation code." },
-  { icon: BatteryCharging, title: "Live session tracking", text: "Watch battery, energy and cost update second by second." },
-  { icon: Gauge, title: "Smart recommendations", text: "A scoring engine ranks stations on distance, speed, price and queue." },
-  { icon: Building2, title: "Owner console", text: "Manage stations, chargers, pricing and revenue analytics." },
-  { icon: ShieldCheck, title: "Role-based access", text: "Drivers, owners and administrators each get a tailored workspace." },
+  {
+    icon: MapPinned,
+    title: "Smart discovery",
+    text: "Live availability, distance, pricing and wait time across every station.",
+  },
+  {
+    icon: QrCode,
+    title: "QR-verified booking",
+    text: "Reserve a charger and arrive with a scannable confirmation code.",
+  },
+  {
+    icon: BatteryCharging,
+    title: "Live session tracking",
+    text: "Watch battery, energy and cost update second by second.",
+  },
+  {
+    icon: Gauge,
+    title: "Smart recommendations",
+    text: "A scoring engine ranks stations on distance, speed, price and queue.",
+  },
+  {
+    icon: Building2,
+    title: "Owner console",
+    text: "Manage stations, chargers, pricing and revenue analytics.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Role-based access",
+    text: "Drivers, owners and administrators each get a tailored workspace.",
+  },
 ];
 
 function Landing() {
@@ -41,7 +74,9 @@ function Landing() {
           <Logo />
           <nav className="flex items-center gap-2">
             <Button variant="ghost" asChild>
-              <Link to="/login" search={{ redirect: undefined }}>Sign in</Link>
+              <Link to="/login" search={{ redirect: undefined }}>
+                Sign in
+              </Link>
             </Button>
             <Button asChild>
               <Link to="/register">Get started</Link>
@@ -66,8 +101,7 @@ function Landing() {
             transition={{ delay: 0.08 }}
             className="mx-auto mt-6 max-w-3xl font-display text-4xl font-extrabold leading-tight sm:text-6xl"
           >
-            Charge smarter with the{" "}
-            <span className="text-primary">EcoCharge</span> network
+            Charge smarter with the <span className="text-primary">EcoCharge</span> network
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 18 }}
@@ -75,8 +109,8 @@ function Landing() {
             transition={{ delay: 0.16 }}
             className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg"
           >
-            Real-time charger availability, one-tap slot booking, QR check-in, live session
-            tracking and instant payments — plus a full analytics console for station owners.
+            Real-time charger availability, one-tap slot booking, QR check-in, live session tracking
+            and instant payments — plus a full analytics console for station owners.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 18 }}

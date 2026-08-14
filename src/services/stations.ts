@@ -54,11 +54,7 @@ export async function listAllStations(): Promise<StationWithChargers[]> {
 
 /** POST /api/stations */
 export async function createStation(payload: StationInsert) {
-  const { data, error } = await supabase
-    .from("stations")
-    .insert(payload)
-    .select()
-    .single();
+  const { data, error } = await supabase.from("stations").insert(payload).select().single();
   if (error) throw error;
   return data;
 }
@@ -94,11 +90,7 @@ export async function listChargers(stationId: string) {
 
 /** POST /api/chargers */
 export async function createCharger(payload: ChargerInsert) {
-  const { data, error } = await supabase
-    .from("chargers")
-    .insert(payload)
-    .select()
-    .single();
+  const { data, error } = await supabase.from("chargers").insert(payload).select().single();
   if (error) throw error;
   return data;
 }

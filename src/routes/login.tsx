@@ -10,7 +10,7 @@ import { useAuth } from "@/contexts/AuthContext";
 export const Route = createFileRoute("/login")({
   ssr: false,
   validateSearch: (search: Record<string, unknown>) => ({
-    redirect: typeof search['redirect'] === "string" ? (search['redirect'] as string) : undefined,
+    redirect: typeof search["redirect"] === "string" ? (search["redirect"] as string) : undefined,
   }),
   head: () => ({
     meta: [

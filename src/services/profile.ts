@@ -40,11 +40,7 @@ export async function listVehicles(userId: string): Promise<VehicleRow[]> {
 }
 
 export async function addVehicle(payload: VehicleInsert) {
-  const { data, error } = await supabase
-    .from("vehicles")
-    .insert(payload)
-    .select()
-    .single();
+  const { data, error } = await supabase.from("vehicles").insert(payload).select().single();
   if (error) throw error;
   return data;
 }

@@ -53,7 +53,10 @@ function BookingPage() {
 
   const chargers = stationQ.data?.chargers ?? [];
   const selected = useMemo(
-    () => chargers.find((c) => c.id === chargerId) ?? chargers.find((c) => c.status === "available") ?? null,
+    () =>
+      chargers.find((c) => c.id === chargerId) ??
+      chargers.find((c) => c.status === "available") ??
+      null,
     [chargers, chargerId],
   );
   const quote = selected ? quoteBooking(selected, duration) : null;
@@ -125,7 +128,9 @@ function BookingPage() {
                     onClick={() => setChargerId(c.id)}
                     className={cn(
                       "rounded-xl border p-4 text-left transition-colors",
-                      active ? "border-primary bg-primary/10" : "border-border hover:border-primary/40",
+                      active
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/40",
                       disabled && "cursor-not-allowed opacity-40",
                     )}
                   >

@@ -29,10 +29,7 @@ function ProfilePage() {
             <Row label="Name" value={profile?.name ?? "—"} />
             <Row label="Email" value={profile?.email ?? user?.email ?? "—"} />
             <Row label="Phone" value={profile?.phone ?? "—"} />
-            <Row
-              label="Roles"
-              value={roles.map((r) => ROLE_LABEL[r]).join(", ") || "EV User"}
-            />
+            <Row label="Roles" value={roles.map((r) => ROLE_LABEL[r]).join(", ") || "EV User"} />
           </dl>
         </div>
 
@@ -41,9 +38,7 @@ function ProfilePage() {
           {vehiclesQ.isLoading ? (
             <LoadingBlock label="Loading vehicles…" />
           ) : (vehiclesQ.data ?? []).length === 0 ? (
-            <p className="mt-4 text-sm text-muted-foreground">
-              No vehicles saved yet.
-            </p>
+            <p className="mt-4 text-sm text-muted-foreground">No vehicles saved yet.</p>
           ) : (
             <ul className="mt-4 space-y-3 text-sm">
               {(vehiclesQ.data ?? []).map((v) => (

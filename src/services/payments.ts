@@ -11,8 +11,7 @@ export type PaymentWithSession = PaymentRow & {
   stations: { id: string; name: string } | null;
 };
 
-const PAYMENT_SELECT =
-  "*, charging_sessions(id,energy_kwh,started_at,ended_at), stations(id,name)";
+const PAYMENT_SELECT = "*, charging_sessions(id,energy_kwh,started_at,ended_at), stations(id,name)";
 
 /** GET /api/payments/:id */
 export async function getPaymentBySession(sessionId: string) {

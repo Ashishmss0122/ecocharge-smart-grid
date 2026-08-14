@@ -130,7 +130,11 @@ function RegisterPage() {
 
           <p className="mt-5 text-center text-sm text-muted-foreground">
             Already registered?{" "}
-            <Link to="/login" search={{ redirect: undefined }} className="font-semibold text-primary hover:underline">
+            <Link
+              to="/login"
+              search={{ redirect: undefined }}
+              className="font-semibold text-primary hover:underline"
+            >
               Sign in
             </Link>
           </p>

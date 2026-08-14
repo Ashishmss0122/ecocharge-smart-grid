@@ -28,7 +28,12 @@ describe("boundsOf", () => {
   });
 
   it("computes the min/max envelope", () => {
-    expect(boundsOf([{ lat: 1, lng: 5 }, { lat: 3, lng: 2 }])).toEqual({
+    expect(
+      boundsOf([
+        { lat: 1, lng: 5 },
+        { lat: 3, lng: 2 },
+      ]),
+    ).toEqual({
       minLat: 1,
       maxLat: 3,
       minLng: 2,
@@ -41,7 +46,11 @@ describe("projectToBox", () => {
   const bounds = { minLat: 0, maxLat: 10, minLng: 0, maxLng: 10 };
 
   it("keeps projected coordinates inside the padded 0-100 box", () => {
-    for (const p of [{ lat: 0, lng: 0 }, { lat: 10, lng: 10 }, { lat: 5, lng: 5 }]) {
+    for (const p of [
+      { lat: 0, lng: 0 },
+      { lat: 10, lng: 10 },
+      { lat: 5, lng: 5 },
+    ]) {
       const { x, y } = projectToBox(p, bounds);
       expect(x).toBeGreaterThanOrEqual(0);
       expect(x).toBeLessThanOrEqual(100);

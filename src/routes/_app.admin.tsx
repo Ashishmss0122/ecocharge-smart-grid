@@ -32,11 +32,7 @@ function AdminPage() {
             label="Active sessions"
             value={statsQ.data?.activeSessions ?? 0}
           />
-          <StatCard
-            icon={Wallet}
-            label="Revenue"
-            value={INR(statsQ.data?.totalRevenue ?? 0)}
-          />
+          <StatCard icon={Wallet} label="Revenue" value={INR(statsQ.data?.totalRevenue ?? 0)} />
         </div>
       )}
 

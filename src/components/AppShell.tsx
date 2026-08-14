@@ -92,13 +92,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function SidebarNav({
-  items,
-  onNavigate,
-}: {
-  items: NavItem[];
-  onNavigate?: () => void;
-}) {
+function SidebarNav({ items, onNavigate }: { items: NavItem[]; onNavigate?: () => void }) {
   return (
     <nav className="flex-1 space-y-1 px-3 py-2">
       {items.map(({ to, label, icon: Icon }) => (
@@ -119,15 +113,7 @@ function SidebarNav({
   );
 }
 
-function UserBox({
-  name,
-  role,
-  onSignOut,
-}: {
-  name: string;
-  role: string;
-  onSignOut: () => void;
-}) {
+function UserBox({ name, role, onSignOut }: { name: string; role: string; onSignOut: () => void }) {
   return (
     <div className="border-t border-border p-4">
       <div className="flex items-center gap-3">
