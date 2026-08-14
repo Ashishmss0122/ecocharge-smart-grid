@@ -84,10 +84,7 @@ export async function getBooking(id: string): Promise<BookingWithRelations | nul
 
 /** PUT /api/bookings/:id/cancel */
 export async function cancelBooking(id: string) {
-  const { error } = await supabase
-    .from("bookings")
-    .update({ status: "cancelled" })
-    .eq("id", id);
+  const { error } = await supabase.from("bookings").update({ status: "cancelled" }).eq("id", id);
   if (error) throw error;
 }
 

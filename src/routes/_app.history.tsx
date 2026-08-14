@@ -82,7 +82,6 @@ function HistoryPage() {
               </div>
             </div>
           ))}
-
         </div>
       )}
     </PageTransition>

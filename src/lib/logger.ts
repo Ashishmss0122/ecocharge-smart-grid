@@ -21,9 +21,7 @@ const REDACTED_KEYS = [
 export function redact(context: Record<string, unknown>): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(context)) {
-    out[k] = REDACTED_KEYS.some((needle) => k.toLowerCase().includes(needle))
-      ? "[redacted]"
-      : v;
+    out[k] = REDACTED_KEYS.some((needle) => k.toLowerCase().includes(needle)) ? "[redacted]" : v;
   }
   return out;
 }

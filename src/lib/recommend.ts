@@ -21,9 +21,7 @@ export function availableChargers(chargers: ChargerRow[]) {
  * Derived from charger count, chargers currently in use and queued bookings.
  */
 export function estimateWaitMinutes(chargers: ChargerRow[], queuedBookings = 0) {
-  const usable = chargers.filter(
-    (c) => c.status === "available" || c.status === "in_use",
-  );
+  const usable = chargers.filter((c) => c.status === "available" || c.status === "in_use");
   if (usable.length === 0) return 45;
   const free = usable.filter((c) => c.status === "available").length;
   const queue = Math.max(0, queuedBookings - free);
@@ -57,9 +55,7 @@ export function scoreStation(
   const free = availableChargers(chargers);
   const prices = chargers.map((c) => Number(c.price_per_kwh));
   const minPrice = prices.length ? Math.min(...prices) : 0;
-  const maxPowerKw = chargers.length
-    ? Math.max(...chargers.map((c) => Number(c.power_kw)))
-    : 0;
+  const maxPowerKw = chargers.length ? Math.max(...chargers.map((c) => Number(c.power_kw))) : 0;
   const waitMinutes = estimateWaitMinutes(chargers, queuedBookings);
 
   const distanceScore = clamp01(1 - distanceKm / 25);

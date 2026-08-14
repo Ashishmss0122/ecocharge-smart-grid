@@ -74,7 +74,6 @@ function StationDetailPage() {
           </Link>
         </Button>
       </div>
-
     </PageTransition>
   );
 }

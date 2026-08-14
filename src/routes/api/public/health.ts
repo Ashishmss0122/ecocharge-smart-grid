@@ -18,8 +18,7 @@ export const Route = createFileRoute("/api/public/health")({
       GET: async () => {
         const url = process.env["SUPABASE_URL"] ?? process.env["VITE_SUPABASE_URL"];
         const key =
-          process.env["SUPABASE_PUBLISHABLE_KEY"] ??
-          process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
+          process.env["SUPABASE_PUBLISHABLE_KEY"] ?? process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
 
         let database: "up" | "down" | "not_configured" = "not_configured";
         let latencyMs: number | null = null;

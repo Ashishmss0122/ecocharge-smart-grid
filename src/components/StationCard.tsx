@@ -73,7 +73,7 @@ export function StationCard({
           </p>
           <ul className="mt-2 space-y-1">
             {insight.reasons.map((r) => (
-            <li key={r} className="flex items-start gap-2 text-xs text-lemon">
+              <li key={r} className="flex items-start gap-2 text-xs text-lemon">
                 <span className="text-accent">✓</span>
                 {r}
               </li>

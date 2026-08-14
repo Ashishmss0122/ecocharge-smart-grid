@@ -60,10 +60,7 @@ export async function getPlatformStats() {
   };
 }
 
-export async function setStationStatus(
-  id: string,
-  status: "approved" | "rejected" | "pending",
-) {
+export async function setStationStatus(id: string, status: "approved" | "rejected" | "pending") {
   const { error } = await supabase.from("stations").update({ status }).eq("id", id);
   if (error) throw error;
 }

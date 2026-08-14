@@ -92,9 +92,7 @@ export function StationMap({ entries }: { entries: Entry[] }) {
             <p className="text-xs uppercase tracking-wider text-muted-foreground">
               Selected station
             </p>
-            <h3 className="mt-1 font-display text-lg font-semibold">
-              {active.station.name}
-            </h3>
+            <h3 className="mt-1 font-display text-lg font-semibold">{active.station.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{active.station.address}</p>
 
             <dl className="mt-5 space-y-3 text-sm">
@@ -110,10 +108,7 @@ export function StationMap({ entries }: { entries: Entry[] }) {
 
             <div className="mt-6 flex flex-col gap-2">
               <Button asChild>
-                <Link
-                  to="/stations/$stationId"
-                  params={{ stationId: active.station.id }}
-                >
+                <Link to="/stations/$stationId" params={{ stationId: active.station.id }}>
                   View station details
                 </Link>
               </Button>

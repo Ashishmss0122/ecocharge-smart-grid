@@ -64,10 +64,7 @@ function PaymentPage() {
           <dl className="space-y-3 text-sm">
             <Row label="Energy delivered" value={kwh(Number(p.energy_kwh))} />
             <Row label="Rate" value={`${INR(Number(p.rate_per_kwh))}/kWh`} />
-            <Row
-              label="Energy cost"
-              value={INR(Number(p.energy_kwh) * Number(p.rate_per_kwh))}
-            />
+            <Row label="Energy cost" value={INR(Number(p.energy_kwh) * Number(p.rate_per_kwh))} />
             <Row label="Service fee" value={INR(Number(p.service_fee))} />
             {p.paid_at && <Row label="Paid on" value={formatDateTime(p.paid_at)} />}
           </dl>
