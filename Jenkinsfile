@@ -14,7 +14,7 @@ pipeline {
         CONTAINER_NAME = 'ecocharge-app'
         HOST_PORT = '3000'
         CONTAINER_PORT = '3000'
-        DOCKER = 'DOCKER = 'C:\\Users\\khaja\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe''
+        DOCKER = 'C:/Users/khaja/AppData/Local/Programs/DockerDesktop/resources/bin/docker.exe'
     }
 
     stages {
