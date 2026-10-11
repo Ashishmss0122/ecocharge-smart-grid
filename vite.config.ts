@@ -8,7 +8,10 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // Docker builds set DOCKER_NITRO_PRESET=node-server so the same source tree can be
 // packaged as a plain Node server image. Unset => Lovable/Vercel default target.
-const dockerPreset = process.env["DOCKER_NITRO_PRESET"];
+// Vercel sets VERCEL=1 during builds; without this the Lovable default (cloudflare)
+// output is produced, which Vercel cannot serve as SSR functions.
+const dockerPreset =
+  process.env["DOCKER_NITRO_PRESET"] ?? (process.env["VERCEL"] ? "vercel" : undefined);
 
 export default defineConfig({
   ...(dockerPreset ? { nitro: { preset: dockerPreset } } : {}),
