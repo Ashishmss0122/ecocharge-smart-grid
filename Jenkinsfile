@@ -5,11 +5,16 @@ pipeline {
     options {
         skipDefaultCheckout(true)
         timestamps()
+        timeout(time: 30, unit: 'MINUTES')
     }
 
     environment {
-        IMAGE_NAME = 'ecocharge:1.0'
+        IMAGE_NAME = 'ecocharge'
+        IMAGE_TAG = '1.0'
         CONTAINER_NAME = 'ecocharge-app'
+        HOST_PORT = '3000'
+        CONTAINER_PORT = '3000'
+        DOCKER = 'C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe'
     }
 
     stages {
@@ -21,111 +26,74 @@ pipeline {
 
         stage('Check Docker') {
             steps {
-                script {
-                    env.PATH = "C:\\Users\\khaja\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin;${env.PATH}"
-                }
-
-                bat '''
-                    @echo off
-                    echo Checking Docker CLI...
-                    where docker
-                    if errorlevel 1 (
-                        echo ERROR: Docker CLI was not found.
-                        exit /b 1
-                    )
-                    docker --version
-
-                    echo Checking Docker Engine...
-                    docker info
-                    if errorlevel 1 (
-                        echo ERROR: Jenkins cannot access Docker Engine.
-                        exit /b 1
-                    )
-                '''
+                bat '"%DOCKER%" --version'
+                bat '"%DOCKER%" info'
             }
         }
 
         stage('Check Project Files') {
             steps {
-                bat '''
-                    @echo off
-                    if not exist package.json (
-                        echo ERROR: package.json not found.
-                        exit /b 1
-                    )
-                    if not exist Dockerfile (
-                        echo ERROR: Dockerfile not found.
-                        exit /b 1
-                    )
-                    echo Project files found.
-                '''
+                bat 'if not exist package.json exit /b 1'
+                bat 'if not exist Dockerfile exit /b 1'
+                bat 'if not exist bun.lock exit /b 1'
             }
         }
 
-          stage('Install Dependencies') {
+        stage('Install Dependencies') {
             steps {
-              timeout(time: 15, unit: 'MINUTES') {
-               bat '''
-                @echo off
-                echo Starting dependency installation...
-                docker run --rm -v "%CD%:/app" -w /app oven/bun:1 bun install --frozen-lockfile --verbose
-                if errorlevel 1 (
-                    echo ERROR: Dependency installation failed.
-                    exit /b 1
-                )
-            '''
+                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun install --frozen-lockfile'
+            }
         }
-    }
-}
+
+        stage('Fix Line Endings') {
+            steps {
+                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bunx prettier --write "src/**/*.{js,jsx,ts,tsx,json,css,md}"'
+            }
+        }
 
         stage('Lint') {
             steps {
-                bat 'docker run --rm -v "%CD%:/app" -w /app oven/bun:1 bun run lint'
+                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run lint'
             }
         }
 
         stage('Type Check') {
             steps {
-                bat 'docker run --rm -v "%CD%:/app" -w /app oven/bun:1 bun run typecheck'
+                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run typecheck'
             }
         }
 
-        stage('Test') {
+        stage('Tests') {
             steps {
-                bat 'docker run --rm -v "%CD%:/app" -w /app oven/bun:1 bun run test:run'
+                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run test:run'
             }
         }
 
         stage('Build Application') {
             steps {
-                bat 'docker run --rm -v "%CD%:/app" -w /app oven/bun:1 bun run build'
+                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run build'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t %IMAGE_NAME% .'
+                bat '"%DOCKER%" build -t %IMAGE_NAME%:%IMAGE_TAG% .'
             }
         }
 
         stage('Deploy Application') {
             steps {
                 bat '''
-                    @echo off
-                    docker rm -f %CONTAINER_NAME% 2>NUL
-                    docker run -d --restart unless-stopped --name %CONTAINER_NAME% -p 3000:3000 %IMAGE_NAME%
-                    if errorlevel 1 (
-                        echo ERROR: Deployment failed.
-                        exit /b 1
-                    )
+                    "%DOCKER%" rm -f %CONTAINER_NAME% 2>NUL
+                    "%DOCKER%" run -d --name %CONTAINER_NAME% -p %HOST_PORT%:%CONTAINER_PORT% %IMAGE_NAME%:%IMAGE_TAG%
                 '''
             }
         }
 
         stage('Verify Deployment') {
             steps {
-                bat 'docker ps --filter "name=%CONTAINER_NAME%"'
-                bat 'docker logs --tail 50 %CONTAINER_NAME%'
+                bat '"%DOCKER%" ps --filter "name=%CONTAINER_NAME%"'
+                bat '"%DOCKER%" logs --tail 50 %CONTAINER_NAME%'
             }
         }
     }
@@ -133,15 +101,15 @@ pipeline {
     post {
         success {
             echo 'EcoCharge pipeline completed successfully.'
-            echo 'Open http://localhost:3000 to test the application.'
+            echo 'Check your application at http://localhost:3000'
         }
 
         failure {
-            echo 'Pipeline failed. Check the first failing stage in Console Output.'
+            echo 'Pipeline failed. Check the first failed stage in the console output.'
         }
 
         always {
-            echo 'Pipeline execution finished.'
+            echo 'EcoCharge Jenkins pipeline finished.'
         }
     }
 }
