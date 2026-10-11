@@ -41,37 +41,37 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun install --frozen-lockfile'
+                bat '"%DOCKER%" run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun install --frozen-lockfile'
             }
         }
 
         stage('Fix Line Endings') {
             steps {
-                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bunx prettier --write "src/**/*.{js,jsx,ts,tsx,json,css,md}"'
+                bat '"%DOCKER%" run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bunx prettier --write "src/**/*.{js,jsx,ts,tsx,json,css,md}"'
             }
         }
 
         stage('Lint') {
             steps {
-                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run lint'
+                bat '"%DOCKER%" run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run lint'
             }
         }
 
         stage('Type Check') {
             steps {
-                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run typecheck'
+                bat '"%DOCKER%" run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run typecheck'
             }
         }
 
         stage('Tests') {
             steps {
-                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run test:run'
+                bat '"%DOCKER%" run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run test:run'
             }
         }
 
         stage('Build Application') {
             steps {
-                bat 'docker run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run build'
+                bat '"%DOCKER%" run --rm -v "%WORKSPACE%:/app" -w /app oven/bun:1 bun run build'
             }
         }
 
