@@ -1,6 +1,6 @@
 # ECOCHARGE — Smart EV Charging Station Management System
 
-**Charge Smarter. Drive Greener.**
+**Charge Smarter. Drive Greener.***
 
 A full-stack EV charging platform: station discovery, charger reservation, QR
 check-in, charging-session simulation, simulated payments, analytics, plus
