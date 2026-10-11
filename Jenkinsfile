@@ -62,11 +62,21 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+          stage('Install Dependencies') {
             steps {
-                bat 'docker run --rm -v "%CD%:/app" -w /app oven/bun:1 bun install --frozen-lockfile'
-            }
+              timeout(time: 5, unit: 'MINUTES') {
+               bat '''
+                @echo off
+                echo Starting dependency installation...
+                docker run --rm -v "%CD%:/app" -w /app oven/bun:1 bun install --frozen-lockfile --verbose
+                if errorlevel 1 (
+                    echo ERROR: Dependency installation failed.
+                    exit /b 1
+                )
+            '''
         }
+    }
+}
 
         stage('Lint') {
             steps {
