@@ -6,7 +6,7 @@ A full-stack EV charging platform: station discovery, charger reservation, QR
 check-in, charging-session simulation, simulated payments, analytics, plus
 owner and admin consoles.
 
-Live app : https://ecocharge-smart-grid.vercel.app
+Live app: https://ecocharge-smart-grid.vercel.app
 
 ---
 
