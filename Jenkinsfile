@@ -8,13 +8,11 @@ pipeline {
     }
 
     environment {
-        PATH+DOCKER = 'C:\\Users\\khaja\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin'
         IMAGE_NAME = 'ecocharge:1.0'
         CONTAINER_NAME = 'ecocharge-app'
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -23,23 +21,24 @@ pipeline {
 
         stage('Check Docker') {
             steps {
+                script {
+                    env.PATH = "C:\\Users\\khaja\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin;${env.PATH}"
+                }
+
                 bat '''
                     @echo off
                     echo Checking Docker CLI...
                     where docker
                     if errorlevel 1 (
-                        echo ERROR: Docker CLI not found.
+                        echo ERROR: Docker CLI was not found.
                         exit /b 1
                     )
-
                     docker --version
-                    if errorlevel 1 exit /b 1
 
                     echo Checking Docker Engine...
                     docker info
                     if errorlevel 1 (
-                        echo ERROR: Docker Engine is not accessible to Jenkins.
-                        echo Check Docker Desktop and Jenkins service permissions.
+                        echo ERROR: Jenkins cannot access Docker Engine.
                         exit /b 1
                     )
                 '''
@@ -54,12 +53,10 @@ pipeline {
                         echo ERROR: package.json not found.
                         exit /b 1
                     )
-
                     if not exist Dockerfile (
                         echo ERROR: Dockerfile not found.
                         exit /b 1
                     )
-
                     echo Project files found.
                 '''
             }
@@ -106,11 +103,9 @@ pipeline {
                 bat '''
                     @echo off
                     docker rm -f %CONTAINER_NAME% 2>NUL
-
                     docker run -d --restart unless-stopped --name %CONTAINER_NAME% -p 3000:3000 %IMAGE_NAME%
-
                     if errorlevel 1 (
-                        echo ERROR: Container deployment failed.
+                        echo ERROR: Deployment failed.
                         exit /b 1
                     )
                 '''
@@ -119,14 +114,8 @@ pipeline {
 
         stage('Verify Deployment') {
             steps {
-                bat '''
-                    @echo off
-                    echo Checking running container...
-                    docker ps --filter "name=%CONTAINER_NAME%"
-
-                    echo Displaying recent container logs...
-                    docker logs --tail 50 %CONTAINER_NAME%
-                '''
+                bat 'docker ps --filter "name=%CONTAINER_NAME%"'
+                bat 'docker logs --tail 50 %CONTAINER_NAME%'
             }
         }
     }
@@ -134,7 +123,7 @@ pipeline {
     post {
         success {
             echo 'EcoCharge pipeline completed successfully.'
-            echo 'Try opening http://localhost:3000'
+            echo 'Open http://localhost:3000 to test the application.'
         }
 
         failure {
@@ -142,7 +131,7 @@ pipeline {
         }
 
         always {
-            echo 'EcoCharge pipeline execution finished.'
+            echo 'Pipeline execution finished.'
         }
     }
 }
