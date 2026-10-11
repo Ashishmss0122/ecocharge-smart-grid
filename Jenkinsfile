@@ -8,7 +8,14 @@ pipeline {
                 checkout scm
             }
         }
-
+         stage('Check Tools') {
+          steps {
+           bat 'whoami'
+           bat 'where bun'
+           bat 'where docker'
+           bat 'docker --version'
+          }
+        }
         stage('Install Dependencies') {
             steps {
                 bat 'bun install --frozen-lockfile'
