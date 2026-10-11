@@ -17,9 +17,10 @@ pipeline {
           }
         }
         stage('Install Dependencies') {
-            steps {
-                bat 'bun install --frozen-lockfile'
-            }
+         steps {
+           bat '"C:\\Users\\khaja\\.bun\\bin\\bun.exe" install --frozen-lockfile'
+         }
+        }
         }
 
         stage('Lint') {
@@ -38,7 +39,14 @@ pipeline {
             steps {
                 bat 'bun run test:run'
             }
-        }
+        } 
+        stage('Check Docker') {
+          steps {
+          bat 'where docker'
+          bat 'docker --version'
+          bat 'docker info'
+         }
+         }
 
         stage('Build') {
             steps {
