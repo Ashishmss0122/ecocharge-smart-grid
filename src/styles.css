@@ -119,7 +119,8 @@
     color-mix(in oklab, var(--surface) 92%, var(--primary) 8%),
     color-mix(in oklab, var(--background) 88%, var(--surface) 12%)
   );
-  --glow-primary: 0 0 0 1px color-mix(in oklab, var(--primary) 24%, transparent),
+  --glow-primary:
+    0 0 0 1px color-mix(in oklab, var(--primary) 24%, transparent),
     0 18px 48px -24px color-mix(in oklab, var(--primary) 55%, transparent);
   --shadow-soft: 0 20px 60px -30px oklch(0 0 0 / 70%);
 }
