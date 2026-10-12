@@ -7,7 +7,7 @@ check-in, charging-session simulation, simulated payments, analytics, plus
 owner and admin consoles.
 
 Live app : https://ecocharge-smart-grid.vercel.app
-
+ghgfh
 ---
 
 ## 1. Technology stack (as actually built)
