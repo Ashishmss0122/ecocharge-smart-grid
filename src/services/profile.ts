@@ -65,12 +65,19 @@ export async function deleteVehicle(id: string) {
 }
 
 export async function setPrimaryVehicle(userId: string, vehicleId: string) {
-  await supabase.from("vehicles").update({ is_primary: false }).eq("user_id", userId);
-  const { error } = await supabase
+  const { error: selectError } = await supabase
     .from("vehicles")
     .update({ is_primary: true })
-    .eq("id", vehicleId);
-  if (error) throw error;
+    .eq("id", vehicleId)
+    .eq("user_id", userId);
+  if (selectError) throw selectError;
+
+  const { error: clearError } = await supabase
+    .from("vehicles")
+    .update({ is_primary: false })
+    .eq("user_id", userId)
+    .neq("id", vehicleId);
+  if (clearError) throw clearError;
 }
 
 export async function listSavedStations(userId: string) {
